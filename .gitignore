@@ -64,6 +64,7 @@ db.sqlite3-journal
 # Flask stuff:
 instance/
 .webassets-cache
+static/
 
 # Scrapy stuff:
 .scrapy
@@ -127,3 +128,28 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Jupyter NB Checkpoints
+.ipynb_checkpoints/
+
+# exclude data from source control by default
+data/*/*
+documents/*
+
+# Binary 
+*.pickle
+.pkl 
+# Tokens
+o365_token.txt
+# IDE
+.vscode
+
+# Local history
+.history
+
+# Mac OS-specific storage files
+.DS_Store
+# Backups
+*.bu
+# Exceptions
+!.gitkeep

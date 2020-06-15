@@ -1,0 +1,22 @@
+{% extends 'content.html' %}
+
+{% block messages %}
+{% for message in get_flashed_messages() %}
+<div class="flash">{{ message }}</div>
+{% endfor %}
+{% endblock messages %}
+
+{% block web_header %}
+<div class="five columns">
+    <a class="full-view-link" href="{{ url_for('bp_plots.show_plot_pages', page='full-view') }}">Full View</a>
+</div>
+{% endblock web_header %}
+{% block nav %}
+<div id="nav" class="row all-tabs">
+    <a class="tab-first" href="{{ url_for('bp_plots.show_plot_pages', page='enrollment') }}">Enrollment</a>
+    <a class="tab" href="{{ url_for('bp_plots.show_plot_pages', page='flu-status') }}">Flu Status</a>
+    <a class="tab" href="{{ url_for('bp_plots.show_plot_pages', page='demographics') }}">Demographics</a>
+    <a class="tab" href="{{ url_for('bp_plots.show_plot_pages', page='quality') }}">QA</a>
+    <a class="tab" href="{{ url_for('bp_plots.show_plot_pages', page='tables') }}">Data</a>
+</div>
+{% endblock nav %}

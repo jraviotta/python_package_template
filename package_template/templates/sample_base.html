@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<div class="container">
+
+    <body class="page">
+
+        <header>
+            <div class="row">
+                <img class="logo" src="{{  url_for('static', filename='PittVax-Logo.png')  }}">
+            </div>
+
+            <div class="row">
+                <div class="twelve columns" style="padding-left: 0">
+                    <div class="seven columns main-title">
+                        <h5>FluVE 2019-2020</h5>
+                    </div>
+                    {% block web_header %}{% endblock web_header %}
+                </div>
+
+            </div>
+            {% block messages %}{% endblock messages %}
+            {% block nav %}{% endblock nav %}
+
+            <div class="product">
+                <div class="row" style="color: #ffffff">
+                    <p>
+                        The U.S. Flu Vaccine Effectiveness (VE) network
+                        is designed to provide estimates of clinical
+                        effectiveness of licensed vaccines by age group
+                        and by influenza type and subtype. The network
+                        consists of five study sites spread across the
+                        United States, including sites in the following
+                        states: Wisconsin; Michigan; Washington;
+                        Pennsylvania; and Texas. Enrollment in the
+                        annual study to measure VE begins after
+                        laboratory-confirmed influenza cases are
+                        reported in local surveillance for two
+                        consecutive weeks and continues for the
+                        rest of flu season.
+                    </p>
+                </div>
+            </div>
+        </header>
+        {% block content %}{% endblock content%}
+        <footer>
+            <div>
+                {% block footer %}
+                &copy; Copyright {{ now.year }} by <a href="http://pittvax.pitt.edu/">PittVax</a>.
+                {% endblock %}
+            </div>
+        </footer>
+
+    </body>
+</div>
+
+</html>
