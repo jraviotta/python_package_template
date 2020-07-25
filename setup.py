@@ -17,6 +17,6 @@ setup(
     ],
     entry_points='''
         [console_scripts]
-        package_template=package_template.cli:cli
+        package_template=src.cli:cli
     ''',
 )

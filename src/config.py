@@ -2,7 +2,7 @@
 import logging
 import os
 from pathlib import Path
-from fluve.loggers import setup_logging
+from src.loggers import setup_logging
 import pandas as pd
 from dotenv import find_dotenv, load_dotenv
 from IPython import get_ipython

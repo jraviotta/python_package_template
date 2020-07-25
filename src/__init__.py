@@ -7,11 +7,11 @@ from dotenv import find_dotenv, load_dotenv
 from flask import Flask, current_app, render_template
 from plotly.offline import plot
 
-import fluve.config as config
-from fluve import cli
-from fluve.data import build_fluve_project
-from fluve.loggers import setup_logging
-from fluve.visualize import build_plots
+import src.config as config
+from src import cli
+from src.data import build_project
+from src.loggers import setup_logging
+from src.visualize import build_plots
 
 # place sensitive global variables in .env or ~/.credentials/.env
 # Read .env files
@@ -45,7 +45,7 @@ def create_app(test_config=None):
         pass
 
     # Build data objects
-    app.proj = build_fluve_project()
+    app.proj = build_project()
     app.plots = build_plots(app.proj)
 
     # Initialize database

@@ -1,9 +1,0 @@
-# local package
--e .
-# external requirements
-click
-ipykernel
-setuptools
-python-dotenv
-flake8
-termcolor

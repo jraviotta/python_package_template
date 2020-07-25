@@ -1,16 +1,17 @@
 import copy
 import logging
+from collections import OrderedDict
 from io import StringIO
 from pathlib import Path
 
 import click
 import numpy as np
+
 import pandas as pd
+import src.config as config
 from bs4 import BeautifulSoup
 from redcap import Project, RedcapError
 from requests.exceptions import RequestException
-from collections import OrderedDict
-import fluve.config as config
 
 logger = logging.getLogger(__name__)
 
@@ -122,11 +123,11 @@ class RedcapProject(Project):
         self.configured = True
 
     def export_metadata(  # NOQA C901
-        self,
-        fields=None,
-        forms=None,
-        format='json',
-        df_kwargs=None):
+            self,
+            fields=None,
+            forms=None,
+            format='json',
+            df_kwargs=None):
         """
             Export the project's metadata
 
@@ -644,7 +645,7 @@ class FluveProject():
         return errors
 
 
-def build_fluve_project():
+def build_project():
     # TODO: This should become a json or yml config
     staffingProject = RedcapProject(
         url=config.redcapApiUrl,
@@ -858,5 +859,5 @@ def build_fluve_project():
 
 @click.command('build-project')
 def build_project_command():
-    fluve = build_fluve_project()
-    click.echo(fluve.data.head())
+    obj = build_project()
+    click.echo(obj.data.head())
