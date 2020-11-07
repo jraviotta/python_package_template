@@ -8,9 +8,9 @@ import click
 import O365
 from flask import render_template
 from flask.cli import with_appcontext
-import fluve
-import fluve.config as config
-from fluve.blueprints.bp_plots import show_plot_pages
+import src
+import src.config as config
+from src.blueprints.bp_plots import show_plot_pages
 logger = logging.getLogger(__name__)
 
 
@@ -65,7 +65,7 @@ def authenticate_o365_command():
 
 def render_report():
     start_server()
-    app = fluve.create_app()
+    app = src.create_app()
     logger.info('rendering html')
     with app.app_context():
         handle = str(Path(config.documents / 'plots.html').resolve())
@@ -86,7 +86,7 @@ def render_and_email(to: list = None, subject=None, **kwargs):
         logger.info(f'sending email to: {address}')
         send_O365_message(address=address,
                           subject=subject,
-                          body='FluVE dashboard attached.',
+                          body='Update attached.',
                           attachments=[handle])
 
 

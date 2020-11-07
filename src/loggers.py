@@ -10,7 +10,7 @@ from typing import List
 import urllib3
 from IPython import get_ipython
 from termcolor import colored
-import fluve.config as config
+import src.config as config
 logger = logging.getLogger(__name__)
 
 
