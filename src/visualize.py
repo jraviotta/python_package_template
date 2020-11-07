@@ -6,7 +6,6 @@ import pandas as pd  # NOQA (F401)
 import plotly.express as px
 import plotly.graph_objects as go
 from plotly.offline import plot
-from fluve.data import build_fluve_project
 
 logger = logging.getLogger(__name__)
 
@@ -381,11 +380,11 @@ class FluPlots():
         return df
 
     def _build_table(  # NOQA (C901)
-        self,
-        group: str,
-        data: pd.DataFrame = None,
-        margins: bool = False,
-        **kwargs):
+            self,
+            group: str,
+            data: pd.DataFrame = None,
+            margins: bool = False,
+            **kwargs):
         if not data:
             data = copy.copy(self.data)
 

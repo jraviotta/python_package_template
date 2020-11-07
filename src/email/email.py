@@ -10,7 +10,6 @@ from flask import render_template
 from flask.cli import with_appcontext
 import src
 import src.config as config
-from src.blueprints.bp_plots import show_plot_pages
 logger = logging.getLogger(__name__)
 
 
