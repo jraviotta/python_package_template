@@ -153,3 +153,5 @@ o365_token.txt
 *.bu
 # Exceptions
 !.gitkeep
+fred/OUT/*
+fred/log.txt

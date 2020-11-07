@@ -3,11 +3,10 @@ from flask import Blueprint
 from flask import current_app as app
 from flask import render_template
 
-# from fluve.pages import demographics, enrollment, flu_status, quality, tables
+# from src.pages import demographics, enrollment, flu_status, quality, tables
 # logger = logging.getLogger(__name__)
 
 # bp_plots = Blueprint('bp_plots', __name__)
-
 
 # @bp_plots.route('/<page>')
 # @bp_plots.route('/<page>/<mail>')

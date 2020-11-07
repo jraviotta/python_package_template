@@ -1,4 +1,4 @@
-from fluve.utils import build_dataframe_row, build_plot_row
+from src.utils import build_dataframe_row, build_plot_row
 
 
 def create_layout(app):
