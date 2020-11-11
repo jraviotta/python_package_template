@@ -3,14 +3,17 @@ import logging
 import os
 import site
 import sys
+import warnings
 from os.path import abspath, join
-from traceback import (extract_tb, format_exception_only, format_list)
+from traceback import extract_tb, format_exception_only, format_list
 from typing import List
 
 import urllib3
 from IPython import get_ipython
 from termcolor import colored
+
 import src.config as config
+
 logger = logging.getLogger(__name__)
 
 
@@ -24,6 +27,8 @@ def _set_lib_loggers(level: str, noisyLibs: list) -> None:
         logging.getLogger(lib).setLevel(level=level)
 
     urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+    warnings.filterwarnings("ignore", category=DeprecationWarning)
+    warnings.filterwarnings("ignore", category=FutureWarning)
 
     def _check_file(name):
         return name and not name.startswith(hide)
@@ -40,7 +45,6 @@ def _set_ipython_errors(level: str) -> None:
     ipython = get_ipython()
     if level == "INFO":
         ipython.magic('xmode Plain')
-
     elif level == "DEBUG":
         ipython.magic('xmode Verbose')
     else:

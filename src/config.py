@@ -9,6 +9,7 @@ from IPython import get_ipython
 from IPython.core.error import UsageError
 
 logger = logging.getLogger(__name__)
+datetime_is_numeric = True
 
 # place sensitive global variables in .env or ~/.credentials/.env
 # Read .env files
@@ -52,9 +53,18 @@ if not documents:
         if not Path.exists(documents):
             os.mkdir(documents)
 
+figures = os.environ.get('FIGURES')
+if not figures:
+    if figures is None:
+        figures = Path(projectRoot / 'figures')
+        if not Path.exists(figures):
+            os.mkdir(figures)
+
 noisyLibs = [
-    'googleapiclient.discovery', 'requests_oauthlib.oauth2_session',
-    'matplotlib.font_manager', 'urllib3.connectionpool'
+    'googleapiclient.discovery',
+    'requests_oauthlib.oauth2_session',
+    'matplotlib.font_manager',
+    'urllib3.connectionpool',
 ]
 
 logger.info("Configuring ipython")
@@ -78,6 +88,6 @@ except ModuleNotFoundError:
 try:
     import matplotlib
     logger.info('Setting matplotlib display options')
-    matplotlib.use('Agg')
+    # matplotlib.use('Agg')
 except Exception as e:
     print(e)
