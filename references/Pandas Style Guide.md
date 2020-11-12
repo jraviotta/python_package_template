@@ -1,6 +1,7 @@
 # Minimally Sufficient Pandas Cheat Sheet
 See also, [Minimally Sufficient Pandas.](https://www.dunderdata.com/post/minimally-sufficient-pandas-cheat-sheet)  
-See also, [Conda Cheat Sheet](https://kapeli.com/cheat_sheets/Conda.docset/Contents/Resources/Documents/index)
+See also, [Conda Cheat Sheet](https://kapeli.com/cheat_sheets/Conda.docset/Contents/Resources/Documents/index)   
+See also, [Pandas User Guide](https://pandas.pydata.org/pandas-docs/stable/user_guide/index.html)  
 
 ## Selecting Data
 Use brackets to select a single column of data because the dot notation cannot column names with spaces, those that collide with DataFrame methods and when the column name is a variable.
@@ -17,7 +18,14 @@ Every trace of `ix` should be removed and replaced with the explicit `loc` or `i
 ## read_csv vs read_table
 Use `read_csv` for all cases. The only difference between these two functions is the default delimiter.
 
+## Data cleaning
+[About pandas dtypes](https://pandas.pydata.org/pandas-docs/stable/user_guide/basics.)  
+Use `convert_dtypes()` to infer dtypes  
+Use `replace()` to normalize strings
+
 ## Checking for missing data
+[About pandas nan](https://pandas.pydata.org/pandas-docs/stable/user_guide/missing_data.html)  
+html#basics-dtypes)  
 Use `isna` and `notna` as they end with ‘na’ like the other missing value methods `fillna` and `dropna`. `isna` is an alias of `isnull` and `notna` is an alias of `notnull`. 
 
 ## Arithmetic and Comparison Operators vs Methods
