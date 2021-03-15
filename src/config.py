@@ -20,16 +20,6 @@ for f in files:
 
 # Set some paths
 projectRoot = Path(__file__).parent.parent.absolute()
-redcapApiUrl = os.environ.get("REDCAP_API_URL")
-redcapApiTestProjectKey = os.environ.get("REDCAP_API_TEST_PROJECT_KEY")
-redcapApiFluVeStaffingKey = os.environ.get("REDCAP_API_FLUVE_STAFFING_KEY")
-redcapApiFluVeEnrollmentKey = os.environ.get("REDCAP_API_FLUVE_ENROLLMENT_KEY")
-flaskApp = os.environ.get("FLASK_APP")
-flaskStatic = Path(projectRoot, 'fluve', 'static')
-O365_client_id = os.environ.get("O365_CLIENT_ID")
-O365_client_secret = os.environ.get("O365_CLIENT_SECRET")
-O365_address = os.environ.get("O365_ADDRESS")
-O365_scopes = os.environ.get("O365_SCOPES")
 
 logger.info(f"Changing dir to {projectRoot}")
 os.chdir(projectRoot)
