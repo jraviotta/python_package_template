@@ -10,8 +10,8 @@ logger = logging.getLogger(__name__)
 
 
 def build_project():
-    project = # stuff here
-    
+    project = x  # stuff here
+
     return project
 
 

@@ -9,7 +9,7 @@ setup(
     license='MIT',
     install_requires=[
         'Click', 'python-dotenv', 'numpy', 'pandas>=1', 'flake8', 'ipykernel',
-        'seaborn', 'termcolor', 'nbformat'
+        'seaborn', 'termcolor', 'nbformat', 'urllib3'
     ],
     dependency_links=[],
     entry_points='''
