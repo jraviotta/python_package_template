@@ -8,8 +8,8 @@ setup(
     author='jraviotta',
     license='MIT',
     install_requires=[
-        'Click', 'python-dotenv', 'numpy', 'pandas>=1', 'flake8', 'ipykernel',
-        'seaborn', 'termcolor', 'nbformat', 'urllib3'
+        'Click', 'python-dotenv', 'numpy', 'pandas>=1', 'flake8', 'black', 'ipykernel',
+        'seaborn', 'termcolor', 'nbformat', 'urllib3', 'O365', 'nbconvert', 'jupyter_contrib_nbextensions'
     ],
     dependency_links=[],
     entry_points='''
