@@ -50,17 +50,14 @@ if not figures:
         if not Path.exists(figures):
             os.mkdir(figures)
 
+# Configure logging
+VERBOSITY='INFO'
 noisyLibs = [
     'googleapiclient.discovery',
     'requests_oauthlib.oauth2_session',
     'matplotlib.font_manager',
     'urllib3.connectionpool',
 ]
-
-logger.info("Configuring ipython")
-if get_ipython():
-    ipython = get_ipython()
-    setup_logging(verbose=os.getenv('VERBOSITY'))
 
 # Configure pandas
 try:

@@ -10,7 +10,7 @@ logger = logging.getLogger(__name__)
 
 
 @click.group()
-@click.option('--verbose', '-v', count=True, help="-v for INFO, -vv for DEBUG")
+@click.option("--verbose", "-v", count=True, help="-v for INFO, -vv for DEBUG")
 @click.pass_context
 def cli(ctx, verbose):
     setup_logging(verbose)
