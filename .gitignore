@@ -149,10 +149,14 @@ o365_token.txt
 .history
 
 # Mac OS-specific storage files
-.DS_Store
+*DS_Store
+
 # Backups
 *.bu
-# Exceptions
+
+#########################
+###### Exceptions #######
+#########################
 !.gitkeep
 fred/OUT/*
 fred/log.txt
