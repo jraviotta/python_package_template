@@ -32,9 +32,9 @@ ARGS = $(filter-out $@,$(MAKECMDGOALS))
 MAKEFLAGS += --silent
 
 ## Install Python Dependencies
-requirements : PYTHON_INTERPRETER = /usr/bin/python3
-requirements: test_environment
-	test -e ./.env || mv ./.env-example .env
+environment : PYTHON_INTERPRETER = /usr/bin/python3
+environment: test_environment
+	test -e ./.venv
 ifeq (True,$(HAS_CONDA))
 	@echo ">>> Detected conda, creating conda environment."
 ifeq (3,$(findstring 3,$(PYTHON_INTERPRETER)))
@@ -51,7 +51,7 @@ else
 	@echo ">>> Installing virtualenv if not already intalled."
 	$(PYTHON_INTERPRETER) -m venv .venv
 	bash -c "source .venv/bin/activate \
-		&& pip install -r requirements.txt \
+		&& pip install -e . \
 		&& ipython kernel install --user --name=$(PROJECT_NAME)"
 	
 	@printf ">>> New virtualenv created. Activate with:\nsource .venv/bin/activate\n\n"
@@ -65,6 +65,8 @@ clean:
 	find . -type d -name "__pycache__" -delete
 	find -type d -name "*.egg-info" -exec rm -rf {} +
 	find -type d -name ".venv" -exec rm -rf {} +
+	find -type d -name "build" -exec rm -rf {} +
+	find -type d -name "dist" -exec rm -rf {} +
 
 ## Lint using flake8
 lint:
