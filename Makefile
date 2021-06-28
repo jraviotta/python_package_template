@@ -34,7 +34,7 @@ MAKEFLAGS += --silent
 ## Install Python Dependencies
 requirements : PYTHON_INTERPRETER = /usr/bin/python3
 requirements: test_environment
-	test -e ./.env || mv ./.env-example .env
+	# test -e ./.venv || mv ./.env-example .venv
 ifeq (True,$(HAS_CONDA))
 	@echo ">>> Detected conda, creating conda environment."
 ifeq (3,$(findstring 3,$(PYTHON_INTERPRETER)))
