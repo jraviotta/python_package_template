@@ -2,7 +2,6 @@
 import logging
 import os
 from pathlib import Path
-from src.loggers import setup_logging
 import pandas as pd
 from dotenv import find_dotenv, load_dotenv
 from IPython import get_ipython
@@ -17,9 +16,14 @@ files = [find_dotenv(), Path(Path.home() / ".credentials", ".env")]
 for f in files:
     load_dotenv(f)
     logger.info(f"loading: {f}")
-credentialsPath = Path(Path.home(), ".credentials")
+    
 # Set some paths
 projectRoot = Path(__file__).parent.parent.absolute()
+credentialsPath = Path(Path.home(), ".credentials")
+O365_client_id = os.environ.get("O365_CLIENT_ID")
+O365_client_secret = os.environ.get("O365_CLIENT_SECRET")
+O365_address = os.environ.get("O365_ADDRESS")
+O365_scopes = os.environ.get("O365_SCOPES")
 
 logger.info(f"Changing dir to {projectRoot}")
 os.chdir(projectRoot)
