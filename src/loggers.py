@@ -41,17 +41,6 @@ def _set_lib_loggers(level: str, noisyLibs: list) -> None:
     return _print
 
 
-def set_ipython_errors(level: str) -> None:
-    ipython = get_ipython()
-
-    if level == "INFO":
-        ipython.magic("xmode Plain")
-    elif level == "DEBUG":
-        ipython.magic("xmode Verbose")
-    else:
-        ipython.magic("xmode Minimal")
-
-
 def set_cli_errors(level: str) -> None:
     def shadow(*hide):
         """Return a function to be set as new sys.excepthook.
@@ -68,7 +57,10 @@ def set_cli_errors(level: str) -> None:
 
         return _print
 
-    def exception_handler(exception_type, exception, tb, debug_hook=sys.excepthook):
+    def exception_handler(exception_type,
+                          exception,
+                          tb,
+                          debug_hook=sys.excepthook):
 
         logger.error(
             f"{colored(exception_type.__name__, 'red')}: {colored(exception, 'yellow')}"
@@ -97,6 +89,9 @@ def setup_logging(verbose=None) -> object:
         level = os.environ.get("VERBOSITY")
     else:
         level = "WARNING"
+        logger.info(f"verbose: {verbose}")
+    logger.debug(f"verbose: {verbose}")
+    logger.debug(f"level: {level}")
 
     # Silence logs from noisy libraries
     _set_lib_loggers(level="WARNING", noisyLibs=config.noisyLibs)
@@ -108,21 +103,22 @@ def setup_logging(verbose=None) -> object:
     logger.setLevel(level)
     logger.info(
         f"logging set to: {logging.getLevelName(logger.getEffectiveLevel())}:\
-            {logger.getEffectiveLevel()}"
-    )
+            {logger.getEffectiveLevel()}")
 
     # Configure ipython error handling
     if get_ipython():
-        # set_ipython_errors(level=level)
         ipython = get_ipython()
-
+        logger.debug(f"ipython level: {level}")
         if level == "INFO":
             ipython.magic("xmode Plain")
         elif level == "DEBUG":
-            ipython.magic("xmode Verbose")
+            ipython.magic("xmode Context")
         else:
             ipython.magic("xmode Minimal")
     else:
         set_cli_errors(level=level)
+
+    logger.info("Test INFO log message.")
+    logger.debug("Test DEBUG log message")
 
     return logger

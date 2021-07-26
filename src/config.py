@@ -16,7 +16,7 @@ files = [find_dotenv(), Path(Path.home() / ".credentials", ".env")]
 for f in files:
     load_dotenv(f)
     logger.info(f"loading: {f}")
-    
+
 # Set some paths
 projectRoot = Path(__file__).parent.parent.absolute()
 credentialsPath = Path(Path.home(), ".credentials")
@@ -71,6 +71,7 @@ try:
     pd.options.display.min_rows = 100
     pd.options.display.max_columns = 50
     pd.options.display.max_colwidth = 200
+    pd.options.display.float_format = '{:.5f}'.format
 
 except ModuleNotFoundError:
     pass
@@ -83,19 +84,3 @@ try:
     # matplotlib.use('Agg')
 except Exception as e:
     print(e)
-
-# Configure SAS
-SAS_config_names = ["oda"]
-oda = {
-    "java": "/usr/bin/java",
-    # US Home Region
-    "iomhost": [
-        "odaws01-usw2.oda.sas.com",
-        "odaws02-usw2.oda.sas.com",
-        "odaws03-usw2.oda.sas.com",
-        "odaws04-usw2.oda.sas.com",
-    ],
-    "iomport": 8591,
-    "authkey": "oda",
-    "encoding": "utf-8",
-}

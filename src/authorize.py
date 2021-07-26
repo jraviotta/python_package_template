@@ -15,7 +15,7 @@ import src.config
 logger = logging.getLogger(__name__)
 
 credentialsPath = src.config.credentialsPath
-client_secrets_file = Path(credentialsPath, 'client_secret.json')
+client_secrets_file = Path(credentialsPath, "client_secret.json")
 
 
 def google_auth(scopes: list) -> object:
@@ -33,9 +33,9 @@ def google_auth(scopes: list) -> object:
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
     # time.
-    tokenFile = Path(credentialsPath, 'token.pickle')
+    tokenFile = Path(credentialsPath, "token.pickle")
     if Path.exists(tokenFile):
-        with open(tokenFile, 'rb') as token:
+        with open(tokenFile, "rb") as token:
             creds = pickle.load(token)
 
     # If there are no (valid) credentials available, let the user log in.
@@ -44,36 +44,37 @@ def google_auth(scopes: list) -> object:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                client_secrets_file, scopes)
+                client_secrets_file, scopes
+            )
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open(tokenFile, 'wb') as token:
+        with open(tokenFile, "wb") as token:
             pickle.dump(creds, token)
     return creds
 
 
 def build_gspread_client(conf_file):
     scopes = [
-        'https://spreadsheets.google.com/feeds',
-        'https://www.googleapis.com/auth/drive',
+        "https://spreadsheets.google.com/feeds",
+        "https://www.googleapis.com/auth/drive",
     ]
 
     def create_assertion_session(conf_file, scopes, subject=None):
-        with open(conf_file, 'r') as f:
+        with open(conf_file, "r") as f:
             conf = json.load(f)
 
-        token_url = conf['token_uri']
-        token_endpoint = conf['token_uri']
-        issuer = conf['client_email']
-        key = conf['private_key']
-        key_id = conf.get('private_key_id')
+        token_url = conf["token_uri"]
+        token_endpoint = conf["token_uri"]
+        issuer = conf["client_email"]
+        key = conf["private_key"]
+        key_id = conf.get("private_key_id")
 
-        header = {'alg': 'RS256'}
+        header = {"alg": "RS256"}
         if key_id:
-            header['kid'] = key_id
+            header["kid"] = key_id
 
         # Google puts scope in payload
-        claims = {'scope': ' '.join(scopes)}
+        claims = {"scope": " ".join(scopes)}
         return AssertionSession(
             token_endpoint=token_endpoint,
             grant_type=AssertionSession.JWT_BEARER_GRANT_TYPE,
