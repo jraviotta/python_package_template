@@ -1,0 +1,3 @@
+[submodule "code_references"]
+	path = code_references
+	url = https://github.com/jraviotta/code_references
