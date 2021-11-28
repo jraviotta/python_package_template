@@ -1,0 +1,10 @@
+{
+    "python.pythonPath": "/usr/bin/python3",
+    "workbench.colorCustomizations": {
+        "terminalCursor.foreground": "#00ffaa",
+        "activityBar.background": "#471E47",
+        "titleBar.activeBackground": "#632A63",
+        "titleBar.activeForeground": "#FCF9FC"
+    },
+    "jupyter.jupyterServerType": "remote"
+}

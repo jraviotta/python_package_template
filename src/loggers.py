@@ -4,6 +4,7 @@ import os
 import site
 import sys
 import warnings
+from datetime import datetime
 from os.path import abspath, join
 from traceback import extract_tb, format_exception_only, format_list
 from typing import List
@@ -14,7 +15,8 @@ from termcolor import colored
 
 import src.config as config
 
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
+IPYTHON = get_ipython()
 
 
 def _set_lib_loggers(level: str, noisyLibs: list) -> None:
@@ -31,7 +33,7 @@ def _set_lib_loggers(level: str, noisyLibs: list) -> None:
     warnings.filterwarnings("ignore", category=FutureWarning)
 
     def _check_file(name):
-        return name and not name.startswith(hide)
+        return name and not name.startswith("hide")
 
     def _print(type, value, tb):
         show = (fs for fs in extract_tb(tb) if _check_file(fs.filename))
@@ -41,7 +43,7 @@ def _set_lib_loggers(level: str, noisyLibs: list) -> None:
     return _print
 
 
-def set_cli_errors(level: str) -> None:
+def set_cli_errors(level: str, logger: logging.Logger = LOGGER) -> None:
     def shadow(*hide):
         """Return a function to be set as new sys.excepthook.
         It will HIDE traceback entries for files from these directories."""
@@ -62,9 +64,8 @@ def set_cli_errors(level: str) -> None:
                           tb,
                           debug_hook=sys.excepthook):
 
-        logger.error(
-            f"{colored(exception_type.__name__, 'red')}: {colored(exception, 'yellow')}"
-        )
+        logger.error(f"""{colored(exception_type.__name__, 'red')}: \n
+            {colored(exception, 'yellow')}""")
 
     if level == "DEBUG":
         cgitb.enable(True, None, 5, "text")
@@ -74,7 +75,8 @@ def set_cli_errors(level: str) -> None:
         sys.excepthook = exception_handler
 
 
-def setup_logging(verbose=None) -> object:
+def setup_logging(verbose=None, logger=LOGGER) -> object:
+    # Read verbosity
     if verbose == 2 or verbose == "DEBUG":
         level = "DEBUG"
         os.environ["VERBOSITY"] = level
@@ -89,36 +91,37 @@ def setup_logging(verbose=None) -> object:
         level = os.environ.get("VERBOSITY")
     else:
         level = "WARNING"
-        logger.info(f"verbose: {verbose}")
-    logger.debug(f"verbose: {verbose}")
-    logger.debug(f"level: {level}")
 
     # Silence logs from noisy libraries
     _set_lib_loggers(level="WARNING", noisyLibs=config.noisyLibs)
 
     # Log to stderr
     log_handlers: List[logging.Handler] = [logging.StreamHandler(sys.stderr)]
-    FORMAT = "%(asctime)s - %(levelname)s [%(filename)s:%(lineno)s - %(funcName)s() ] %(message)s"
-    logging.basicConfig(level=level, format=FORMAT, handlers=log_handlers)
+    FORMAT = "%(asctime)s %(levelname)s %(module)s:%(lineno)s %(funcName)s() - %(message)s"  # noqa 501
+    logging.basicConfig(level=level,
+                        format=FORMAT,
+                        datefmt='%Y-%m-%d %H:%M:%S',
+                        handlers=log_handlers)
     logger.setLevel(level)
     logger.info(
         f"logging set to: {logging.getLevelName(logger.getEffectiveLevel())}:\
             {logger.getEffectiveLevel()}")
 
     # Configure ipython error handling
-    if get_ipython():
-        ipython = get_ipython()
+    if IPYTHON:
         logger.debug(f"ipython level: {level}")
         if level == "INFO":
-            ipython.magic("xmode Plain")
+            IPYTHON.magic("xmode Minimal")
+        # elif level == "DEBUG":
+        #     IPYTHON.magic("xmode Context")
         elif level == "DEBUG":
-            ipython.magic("xmode Context")
+            IPYTHON.magic("xmode Plain")
         else:
-            ipython.magic("xmode Minimal")
+            IPYTHON.magic("xmode Minimal")
     else:
         set_cli_errors(level=level)
-
-    logger.info("Test INFO log message.")
-    logger.debug("Test DEBUG log message")
-
+    logger.info(f"verbose: {verbose}")
+    logger.debug(f"log level: {level}")
+    now = datetime.now().replace(second=0, microsecond=0)
+    print(f"Output produced: {now}")
     return logger

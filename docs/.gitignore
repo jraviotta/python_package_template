@@ -1,0 +1,8 @@
+pentaho-data-integration/secret.config
+*/*/*/vocab-download
+*zip
+*/*/zip
+*/*/secret.config
+*~
+*/*~
+

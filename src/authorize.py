@@ -44,8 +44,7 @@ def google_auth(scopes: list) -> object:
             creds.refresh(Request())
         else:
             flow = InstalledAppFlow.from_client_secrets_file(
-                client_secrets_file, scopes
-            )
+                client_secrets_file, scopes)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
         with open(tokenFile, "wb") as token:
